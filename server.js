@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.set('port', process.env.PORT || 3001);
 
 
 
@@ -85,19 +85,10 @@ app.put('/api/todo/:id', function(req,res){
 	let task = req.body.task;
 	let description = req.body.description;
 
- // db.Todo.update({_id: req.params.id}, {task: task, description: description}, {new: true}, function (err, updatedItem) {
- // 		if (err) {
- // 			console.log("updatedItem error")
- // 			res.sendStatus(500);
- // 		} else {
- // 			res.json(updatedItem);
- // 		}
- // 	})
-
 	db.Todo.findOneAndUpdate(
 		{_id: req.params.id}, 
 		{$set:{task: task, description: description}}, 
-		{new: true}, 
+		{new: true}, //<--probably not necessary
 		function (err, doc) {
 	  		if (err) {
 	    		console.log("Something wrong when updating data!");
@@ -110,4 +101,6 @@ app.put('/api/todo/:id', function(req,res){
 });
 
 
-app.listen(3000, () => console.log('The Federal Government is listening on port 3000'));
+app.listen(app.get('port'), () => {
+    console.log(`✅ PORT: ${app.get('port')} 🌟`)
+  })

@@ -64,7 +64,7 @@ function getTodoHtml(todo) {
   //theory: using handlebars to make an inline ajax call, there's a CDN <script> tag in html
   return `<hr>
           <p>
-            <b>_____${todo.task}</b>
+            <b>_____${todo.task}</b> 
             <b> ........ ${todo.description}</b>
             <button type="button" name="button" class="deleteBtn btn btn-success pull-right" data-id=${todo._id}>Complete</button>
             <button type="button" name="button" class="updateBtn btn btn-warning pull-left" data-id=${todo._id}>Update</button>
@@ -137,7 +137,6 @@ function newItemError() {
 
 function updateItemSuccess(json) {
   // $('#newBookForm input').val('');
-  var updateItem = $('#newItemForm input').serialize();
   var itemId = json._id;
   
   for(var i = 0; i < allTodo.length; i++) {
